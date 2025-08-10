@@ -21,7 +21,7 @@ class MovieList extends StatelessWidget {
   final double height;
   final bool isPoster;
 
-  void _onTapped(BuildContext context, int id) {
+  void _onTapped(BuildContext context, int id, String posterUrl) {
     late final Future<MovieDetailModel> movieDetail =
         ApiService.getMovieDetailById(id);
     Navigator.push(
@@ -30,6 +30,7 @@ class MovieList extends StatelessWidget {
         builder: (context) => DetailScreen(
           movieId: id,
           movieDetail: movieDetail,
+          posterUrl: posterUrl,
         ),
       ),
     );
@@ -49,7 +50,7 @@ class MovieList extends StatelessWidget {
               itemBuilder: (context, index) {
                 var movie = snapshot.data![index];
                 return GestureDetector(
-                  onTap: () => _onTapped(context, movie.id),
+                  onTap: () => _onTapped(context, movie.id, movie.posterUrl),
                   child: Column(
                     children: [
                       Container(
